@@ -1,0 +1,42 @@
+﻿@model IEnumerable<WikiRh.Models.WikiRh_File>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<center><h1>Liste des fichiers</h1></center>
+<p>
+    <a asp-action="Create" class="btn btn-outline-primary">+ Ajouter un fichier à une question</a>
+</p>
+
+<table class="table table-hover table-responsive-lg">
+    <thead style="background-color:#a4d4f7">
+        <tr>
+            <th>
+                @Html.DisplayName("Nom de fichier")
+            </th>
+           
+            <th>
+                @Html.DisplayName("Pour la question")
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+           
+            <td>
+                @Html.DisplayFor(modelItem => item.Questions.QuestionContent)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id_file" class="btn btn-outline-warning" style="width: 100px;">Modifier</a> 
+                <a asp-action="Delete" asp-route-id="@item.Id_file" class="btn btn-outline-danger" style="width: 100px;">Supprimer</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

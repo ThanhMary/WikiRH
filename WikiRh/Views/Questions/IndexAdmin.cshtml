@@ -1,0 +1,82 @@
+﻿@model IEnumerable<WikiRh.Models.WikiRh_Question>
+@{
+    ViewData["Title"] = "Index";
+}
+     <center><h1>Liste des questions</h1></center>
+ 
+<form asp-controller="Questions" asp-action="IndexAdmin">
+    <div class="row">
+        <div class="col-md-3">
+            <h3 style="color:white;">Création </h3>
+            <a asp-action="Create" class="btn btn-outline-primary">+ Nouvelle Question/Réponse</a>
+        </div>
+        <div class="col-md-3">
+            <h3 for="choix_cat">Filtrer par catégorie </h3>
+            @Html.DropDownList("SearchString", ViewBag.cat, "", htmlAttributes: new { @class = "form-control", @onchange = "submit()" })
+        </div>
+        <div class="col-md-4">
+            <h3>Rechercher par un mot clé</h3>
+            <input class="form-control" type="text" name="SearchStringBis" value="@ViewData["CurrentFilter"]" />
+        </div>
+        <div class="col-md-2">
+            <h3 style="color: white">Subtmit</h3>
+            <button name="search" class="btn btn-outline-info" type="submit">Rechercher</button>
+        </div>
+    </div>
+</form>
+     <br /><br />
+     <table class="table table-bordered table-hover">
+         <thead style="background-color: #a4d4f7">
+             <tr>
+                 <th>
+                     @Html.DisplayName("Question")
+                 </th>
+                 <th>
+                     @Html.DisplayName("Réponse")
+                 </th>
+                 <th>
+                     @Html.DisplayName("Site internet")
+                 </th>
+                 <th>
+                     @Html.DisplayName("Catégorie")
+                 </th>
+                 <th>
+                     @Html.DisplayName("Fichiers")
+                 </th>
+                 <th>Actions</th>
+             </tr>
+         </thead>
+         <tbody>
+             @foreach (var item in Model)
+             {
+             <tr>
+                 <td>
+                     @Html.DisplayFor(modelItem => item.QuestionContent)
+                 </td>
+                 <td>
+                     @Html.DisplayFor(modelItem => item.ResponsContent)
+                 </td>
+                 <td>
+                     @Html.DisplayFor(modelItem => item.Url)
+                 </td>
+                 <td>
+                     @Html.DisplayFor(modelItem => item.Categories.Name)
+                 </td>
+               
+                 <td>
+                     @foreach (var file in ViewBag.Files)
+                     {
+                         @if (item.Files != null && item.Id_quest == file.Id_quest )
+                         {
+                             <span>@file.Name </span>
+                         }
+                     }
+                 </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id_quest" class="btn btn-outline-warning" style="width: 100px;">Modifier</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id_quest" class="btn btn-outline-danger" style="width: 100px;">Supprimer</a>
+                </td>
+             </tr>
+             }
+         </tbody>
+     </table>

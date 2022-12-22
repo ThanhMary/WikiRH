@@ -1,0 +1,29 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Configuration.Internal;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace WikiRh.AppConfig
+{
+    public class AppConfig
+    {
+        public static string NameAdmin { get; private set; }
+        public static string NameAdminBisA { get; private set; }
+        public static string NameAdminBisB { get; private set; }
+
+
+        public static string  GetNameAdmin()
+        {
+         return NameAdmin = "SMARTINEZ";
+        }
+        public static string GetNameAdminBisA()
+        {
+            return NameAdminBisA = "NDABE";
+        }
+        public static string GetNameAdminBisB()
+        {
+            return NameAdminBisA = "TTNGUYEN";
+        }
+    }
+}

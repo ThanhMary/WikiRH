@@ -1,0 +1,40 @@
+﻿@model WikiRh.Models.WikiRh_Question
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+
+
+<h1>Vous êtes sûr de vouloir supprimer cette question?</h1>
+<div>
+
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayName("Question")
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.QuestionContent)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayName("Réponse")
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ResponsContent)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayName("Catégorie")
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Categories.Name)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id_quest" />
+        <a asp-action="IndexAdmin">Retourner à la liste</a> |
+        <button type="submit" class="btn btn-outline-danger">Supprimer</button>
+
+    </form>
+</div>

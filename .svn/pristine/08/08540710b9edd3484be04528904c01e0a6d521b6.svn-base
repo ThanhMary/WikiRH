@@ -1,0 +1,28 @@
+﻿@model WikiRh.Models.WikiRh_Category
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Supprimer la catégorie</h1>
+
+<h3>Attention, si vous supprimez cette catégorie, vous supprimer aussi les questions de cette catégorie, vous êtes sure?</h3>
+<div>
+
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id_cat" />
+        <button type="submit" class="btn btn-outline-danger">Supprimer</button> |
+        <a asp-action="Index">Retourner à la liste</a>
+
+    </form>
+</div>

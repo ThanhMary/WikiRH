@@ -1,0 +1,87 @@
+﻿@model PaginatedList<WikiRh.Models.WikiRh_Question>
+
+@{
+    ViewData["Title"] = "Index";
+
+}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css" />
+<br />
+<center><h1>QUESTION/REPONSE RH</h1></center>
+<br />
+
+<form asp-controller="Questions" asp-action="Index">
+    <div class="row">
+        <div class="col-md-5">
+            <h3 for="choix_cat">Filtrer par catégorie </h3>
+            @Html.DropDownList("SearchString", ViewBag.cat, "", htmlAttributes: new { @class = "form-control", @onchange = "submit()" })
+        </div>
+        <div class="col-md-4">
+            <h3>Rechercher par un mot clé</h3>
+            <input class="form-control" type="text" name="SearchStringBis" value="@ViewData["CurrentFilter"]" />
+        </div>
+        <div class="col-md-2">
+            <h3 style="color: white">Subtmit</h3>
+            <button name="search" class="btn btn-outline-info" type="submit">Rechercher</button>
+        </div>
+    </div>
+</form>
+<br />
+
+<hr />
+@{int i = 0;}
+@foreach (var item in Model)
+{
+    <div class="panel-group" id="accordion_@i">
+        <div class="panel panel-default" id="panel_@i">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-target="#collapseOne_@i" id="btnConsult_@i" href="#collapseOne_@i" onclick="clickLink(@i, @item.Id_quest)">
+                        @Html.DisplayFor(modelItem => item.QuestionContent)
+                        (<img src="~/lib/Img/eye.jpg" width="15" /> <span style="font-size: 50% !important; color:black !important;">@item.Count fois</span>)
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseOne_@i" class="panel-collapse collapse in">
+                <div class="panel-body" style="color: black;">
+                    <h5> @Html.DisplayFor(modelItem => item.ResponsContent)</h5>
+                    <a href="@item.Url">@Html.DisplayFor(modelItem => item.Url)</a><br />
+
+                        @foreach (var file in ViewBag.Files)
+                        {
+                            if (file.Id_quest == item.Id_quest)
+                            {
+                               
+                            <span>
+                                Fichier:
+                                <a asp-controller="File" asp-action="DownLoadFile" asp-route-id="@file.Id_file">@file.Name</a>
+                            </span>
+                            }
+                        }
+                 
+                    <br />
+                </div>
+            </div>
+        </div>
+    </div>
+    i++;
+    <hr />
+}
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex - 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-info @prevDisabled">
+    Précédente
+</a>
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex + 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-info @nextDisabled">
+    Suivante
+</a>

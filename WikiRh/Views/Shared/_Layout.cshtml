@@ -1,0 +1,95 @@
+﻿@using Microsoft.Extensions.Options
+@using  WikiRh.AppConfig
+@inject IOptions<ApplicationConfig> appSettingsAccessor
+@using WikiRh.Extensions
+
+<!DOCTYPE html>
+@{
+    var Name = User.Identity.Name.Substring(9).ToUpper();
+    ApplicationConfig config = appSettingsAccessor.Value;
+}
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - WikiRh</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <style>
+        .content {
+            background-color: white;
+            border-radius: 10px;
+            width: 1450px;
+            padding: 10px 20px 20px 30px;
+            margin-right: auto;
+            margin-left: auto;
+        }
+      
+    </style>
+</head>
+
+<body>
+    <div class="content">
+        <nav class="navbar navbar-expand navbar-toggleable navbar-light bg-white border-bottom box-shadow mb-3">
+
+            <a class="nav navbar-text navbar-right" asp-area="" asp-controller="Questions" asp-action="Index">
+                <img src="~/lib/Img/wiki.jpg" height="90" /> <img src="~/lib/Img/Logo.png" height="70" />
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                <p class="nav navbar-text navbar-right"> @Name <img src="~/lib/Img/user.png" width="40" /></p>
+                <a class="nav navbar-text navbar-right" asp-area="" asp-controller="Questions" asp-action="Index">ACCUEIL <img src="~/lib/Img/home.png" width="40" /></a>
+                <ul class="navbar-nav flex-grow-1">
+                    @if (User.IsInGroup(config.GroupsAdmin))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Questions" asp-action="IndexAdmin"><h5>| Questions/Reponses |</h5></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="Index"><h5>| Catégories |</h5></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="File" asp-action="Index"><h5>| Fichiers | </h5></a>
+                        </li>
+                    }
+                </ul>
+            </div>
+
+        </nav>
+
+
+        @if (User.IsInGroup(config.GroupsAdmin) || User.IsInGroup(config.GroupsUser))
+        {
+            @RenderBody()
+        }
+        else
+        {
+            IgnoreBody();
+
+            <h2> Veuillez contacter à RH pour savoir le droit d'accès à ce site!</h2>
+        }
+        <br />
+        <div class="navbar-fixed-bottom">
+            <div class="text-center">
+                <h5>
+                    © @(DateTime.Today.ToString("yyyy"))
+                    <a href="https://www.groupe-interway.fr/"> GROUPE INTERWAY FRANCE </a>
+                </h5>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        const ROOT = '@Url.Content("~/")';
+    </script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

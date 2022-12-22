@@ -1,0 +1,29 @@
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft": "Warning",
+      "Microsoft.Hosting.Lifetime": "Information"
+    }
+  },
+  "AllowedHosts": "*",
+  "ApplicationConfig": {
+    "ApplicationName": "FAQ_RH",
+    "MailPrefix": "[TEST IT4YOURWAY]",
+    "MailHost": "srv-exchange1.interway.fr",
+    "MailPort": 25,
+    "ElmahMailSender": "elmah@interway.fr",
+    "ElmahMailRecipient": "ttnguyen@interway.fr",
+    "ElmahMailTitle": "[DEV] FAQ RH",
+
+    "GroupsAdmin": "INTERWAY\\GRP_DSI,INTERWAY\\,INTERWAY\\GRP_Admin_FaqRH",
+    "GroupsUser": "INTERWAY\\GRP_FaqRH,INTERWAY"
+  },
+    
+    "ConnectionStrings": {
+      //"WikiRhConnection": "Server= SRV-SQLDEV.interway.fr;Initial Catalog=DTWH-Iway;User ID=extranet;Password=extra;Application Name=WikiRH",
+      "WikiRhConnection": "Server= SRV-SQLDEV.interway.fr;Initial Catalog=WikiRH;User ID=extranet;Password=extra;Application Name=WikiRH",
+      "LogsDatabase": "Server=srv-sqldev;Database=LogsDatabase;User ID=extranet;Password=extra;MultipleActiveResultSets=true"
+    }
+
+  }

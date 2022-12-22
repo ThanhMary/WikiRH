@@ -1,0 +1,24 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h2 class="display-4">Importer un fichier</h2>
+   
+</div>
+<center>
+    <form asp-controller="Questions">
+        <button class="btn btn-group-lg btn-outline-primary" asp-controller="Questions" asp-action="Files">Voir tous les fichiers</button><br /><br />
+    </form>
+
+    <img src="~/lib/Img/importer.png" width="200" />
+    <br /> <br />
+
+    <form asp-controller="Questions" asp-action="UploadFile" method="post" enctype="multipart/form-data">
+        <input class="btn btn-group-lg btn-outline-info" type="file" name="file" />
+        <button class="btn btn-group-lg btn-outline-warning" type="submit">Importer le fichier</button>
+
+    </form>
+
+
+</center>

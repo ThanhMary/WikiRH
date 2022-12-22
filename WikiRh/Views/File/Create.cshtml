@@ -1,0 +1,45 @@
+﻿@model WikiRh.Models.WikiRh_File
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Ajouter un fichier à une question</h1>
+<hr />
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-7">
+
+        @*Il faut utiliser enctype= "multipart/form-data" pour envoyer un fichier*@
+        @using (Html.BeginForm("Create", "File", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="form-group">
+                <label class="control-label">Fichier</label>
+                <input class="btn btn-group-lg btn-outline-info" id="file" type="file" name="fileupload" />
+            </div>
+            <div class="form-group">
+                <label class="control-label">Question</label>
+                <select asp-for="Id_quest" class="form-control" asp-items="ViewBag.Questions"></select>
+                <span asp-validation-for="Id_quest" class="text-danger"></span>
+            </div>
+            @*<div class="form-group">
+                <label class="control-label">Question</label>
+                <input name="Id_quest" class="form-control" list="questions" />
+                <datalist id="questions">
+                    @Html.DropDownList("Questions", null, "-- Veuillez choisir une question --", htmlAttributes: new { @class = "form-control" })
+                </datalist>
+            </div>*@
+            <div class="form-group">
+                <input type="submit" value="Enregistrer" class="btn btn-outline-primary" />
+            </div>
+        }
+    </div>
+    </div>
+
+<div>
+    <a asp-action="Index">Retourner à la liste</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

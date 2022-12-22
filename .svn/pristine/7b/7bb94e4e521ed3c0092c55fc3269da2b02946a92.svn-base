@@ -1,0 +1,59 @@
+﻿@model WikiRh.Models.WikiRh_Question
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Modifier la question/réponse</h1>
+<hr />
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        @using (Html.BeginForm("Edit", "Questions", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id_quest" />
+            <div class="form-group">
+                <label class="control-label">Question</label>
+                <input asp-for="QuestionContent" class="form-control" />
+                <span asp-validation-for="QuestionContent" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Réponse</label>
+                <input asp-for="ResponsContent" class="form-control" />
+                <span asp-validation-for="ResponsContent" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Catégorie</label>
+                <select asp-for="Id_cat" class="form-control" asp-items="ViewBag.Id_cat"></select>
+                <span asp-validation-for="Id_cat" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Lien vers un site(*facultatif)</label>
+                <input asp-for="Url" class="form-control" />
+                <span asp-validation-for="Url" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Importer fichier 1(* facultatif)</label>
+                <input class="btn btn-group-lg btn-outline-info" id="file" type="file" name="file1" />
+            </div>
+            <div class="form-group">
+                <label class="control-label">Importer fichier 2(* facultatif)</label>
+                <input class="btn btn-group-lg btn-outline-info" id="file" type="file" name="file2" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Enregistrer" class="btn btn-outline-primary" />
+            </div>
+        }
+        </div>
+    <div class="col-md-2"></div>
+</div>
+
+<div>
+    <a asp-action="IndexAdmin">Retourner à la liste</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

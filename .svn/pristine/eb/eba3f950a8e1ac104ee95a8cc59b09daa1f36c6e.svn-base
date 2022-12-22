@@ -1,0 +1,34 @@
+﻿@model IEnumerable<WikiRh.Models.WikiRh_Category>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<center><h1>Liste des catégorie</h1></center>
+
+<p>
+    <a asp-action="Create" class="btn btn-outline-primary">+ Nouvelle catégorie</a>
+</p>
+<table class="table table-hover table-responsive-lg">
+    <thead style="background-color: #a4d4f7">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id_cat" class="btn btn-outline-warning" >Modifier</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id_cat" class="btn btn-outline-danger">Supprimer</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
